@@ -46,3 +46,23 @@ class Diode(Component):
             )
             - 1
         )
+
+
+class Thermistor(Component):
+    def __init__(
+        self,
+        r_0: float = 1e3,
+        beta: float = 3000.0,
+        t_0: float = 300.0,
+        temperature: float = 300.0,
+    ):
+        self.r_0 = r_0
+        self.beta = beta
+        self.t_0 = t_0
+        self.temperature = temperature
+
+    def get_current(self) -> float:
+        resistance = self.r_0 * np.exp(
+            self.beta * (1 / self.temperature - 1 / self.t_0)
+        )
+        return self.voltage / resistance
