@@ -1,12 +1,13 @@
 import numpy as np
 
+from electronic_circuits.components import Component
+
 
 class Voltmeter:
-    def __init__(self):
-        self.voltages = np.arange(-5, 6)
-        self.index = 0
+    def __init__(self, component: Component):
+        self.component = component
 
     def measure(self) -> float:
-        res = self.voltages[self.index]
-        self.index += 1
-        return res
+        voltage = self.component.get_voltage()
+        noise = 0.05 * voltage * (np.random.rand() * 2 - 1)
+        return voltage + noise
