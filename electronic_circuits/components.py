@@ -2,16 +2,25 @@ import numpy as np
 
 
 class Component:
-    def get_current(self, applied_voltage: float) -> float:
+    def __init__(self):
+        self.voltage = 0.0
+
+    def set_voltage(self, applied_voltage: float) -> None:
+        self.voltage = applied_voltage
+
+    def get_current(self) -> float:
         raise NotImplementedError
+
+    def get_voltage(self) -> float:
+        return self.voltage
 
 
 class Resistance(Component):
     def __init__(self, value: float = 1e3):
         self.value = value
 
-    def get_current(self, applied_voltage: float) -> float:
-        return applied_voltage / self.resistance
+    def get_current(self) -> float:
+        return self.voltage / self.resistance
 
 
 class Diode(Component):
@@ -25,14 +34,14 @@ class Diode(Component):
         temperature: float = 300.0,
     ):
         self.saturation_current = saturation_current
-        self.ideality_factor = (ideality_factor,)
+        self.ideality_factor = ideality_factor
         self.temperature = temperature
 
-    def get_current(self, applied_voltage: float) -> float:
+    def get_current(self) -> float:
         return self.saturation_current * (
             np.exp(
                 self.e_charge
-                * applied_voltage
+                * self.voltage
                 / (self.boltzmann_constant * self.temperature)
             )
             - 1
