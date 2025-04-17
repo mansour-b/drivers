@@ -14,7 +14,7 @@ class Component:
     def get_voltage(self) -> float:
         return self.voltage
 
-    def set_temperature(self) -> None:
+    def set_temperature(self, temperature: float) -> None:
         pass
 
 

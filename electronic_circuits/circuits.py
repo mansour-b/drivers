@@ -9,3 +9,5 @@ class MeasuringCircuit:
 
         self.ammeter = Ammeter(component)
         self.voltmeter = Voltmeter(component)
+
+        self.components = [component]
