@@ -15,9 +15,9 @@ class Component:
         return self.voltage
 
 
-class Resistance(Component):
-    def __init__(self, value: float = 1e3):
-        self.value = value
+class Resistor(Component):
+    def __init__(self, resistance: float = 1e3):
+        self.resistance = resistance
 
     def get_current(self) -> float:
         return self.voltage / self.resistance
